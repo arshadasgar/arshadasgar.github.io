@@ -205,7 +205,7 @@ $(function () {
 
     }
 
-    $(document).on('click', '#winner', function () {
+    $(document).on('click', '#restart_btn', function () {
         location.reload();
     });
 
