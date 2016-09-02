@@ -1,0 +1,176 @@
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-color: #45d678;
+}
+
+#container{
+    position: relative;
+    height: 90vh;
+    width: 25%;
+    margin-left: 35%;
+    margin-top: 20px;;
+    background-color: #292929;
+    overflow: hidden;
+}
+#line{
+    position: absolute;
+    height: 600px;
+    width: 4%;
+    margin-left: 48%; 
+    background-color: rgba(255,255,255,0.2);
+    top: 0;
+}
+#line_1{
+    position: absolute;
+    height: 150px;
+    width: 4%;
+    margin-left: 48%; 
+    background-color: rgba(255,255,255,0.5);
+    top: -150px;
+}
+#line_2{
+    position: absolute;
+    height: 150px;
+    width: 4%;
+    margin-left: 48%; 
+    background-color: rgba(255,255,255,0.5);
+    top: 150px;
+}
+#line_3{
+    position: absolute;
+    height: 150px;
+    width: 4%;
+    margin-left: 48%; 
+    background-color: rgba(255,255,255,0.5);
+    top: 450px;
+}
+.car{
+    position: absolute;
+    height: 60px;
+    width: 40px;
+    border-radius: 5px;;
+    box-shadow: 0px 1px 8px 0px black;
+}
+#car{
+    bottom: 8%;
+    left: 60%;
+    background-color: #ffdf5a;
+}
+.f_glass{
+    position: absolute;
+    height: 20%;
+    width: 60%;
+    margin-left: 20%;
+    top: 15%;
+    border-radius: 0px 0px 5px 5px;
+    background-color: #484848;
+}
+.b_glass{
+    position: absolute;
+    height: 20%;
+    width: 60%;
+    margin-left: 20%;
+    bottom: 15%;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #484848;
+}
+.f_light_l{
+    position: absolute;
+    height: 10%;
+    width: 20%;
+    margin-left: 10%;
+    top: -6%;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #efefef;
+}
+.f_light_r{
+    position: absolute;
+    height: 10%;
+    width: 20%;
+    margin-left: 70%;
+    top: -6%;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #efefef;
+}
+.f_tyre_l{
+    position: absolute;
+    height: 20%;
+    width: 10%;
+    background-color: grey;
+    top: 20%;
+    left: -10%;
+    border-radius: 5px 0px 0px 5px;
+}
+.f_tyre_r{
+    position: absolute;
+    height: 20%;
+    width: 10%;
+    background-color: grey;
+    top: 20%;
+    left: 100%;
+    border-radius: 0px 5px 5px 0px;
+}
+.b_tyre_l{
+    position: absolute;
+    height: 20%;
+    width: 10%;
+    background-color: grey;
+    top: 70%;
+    left: -10%;
+    border-radius: 5px 0px 0px 5px;
+}
+.b_tyre_r{
+    position: absolute;
+    height: 20%;
+    width: 10%;
+    background-color: grey;
+    top: 70%;
+    left: 100%;
+    border-radius: 0px 5px 5px 0px;
+}
+#car_1{
+    top: -100px;   
+    left: 60%;
+    background-color: #26c5ff;
+}
+#car_2{
+    top: -200px;   
+    left: 40%;
+    background-color: #26c5ff;
+}
+#car_3{
+    top: -350px;   
+    left: 50%;
+    background-color: #26c5ff;
+}
+#restart_div {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #292929;
+    color: white;
+    font-family: sans-serif;
+    font-size: 40px;
+    text-align: center;
+    display: none;
+}
+
+#restart {
+    border: none;
+    padding: 25px;
+    color: white;
+    background-color: #8a64ff;
+    font-size: 30px;
+    margin-top: 30%;
+}
+.small_text{
+    font-size: 15px;
+}
+#score_div{
+    position: absolute;
+    margin-top: 20%;
+    margin-left: 20%;
+    font-size: 35px;
+}
