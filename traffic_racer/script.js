@@ -137,7 +137,7 @@ $(function () {
 
     function repeat() {
         if (game_over === false) {
-            if (collision(car, car_1) || collision(car, car_2)) {
+            if (collision(car, car_1) || collision(car, car_2) || collision(car, car_3)) {
                 stop_the_game();
             }
             
