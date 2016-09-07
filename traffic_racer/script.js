@@ -146,6 +146,10 @@ $(function () {
             if(score_counter % 20 == 0){
                 score.text(parseInt(score.text()) + 1);
             }
+            if(score_counter % 1000 == 0){
+            	speed++;
+            	line_speed++;
+            }
             
             car_down(car_1);   
             car_down(car_2);
@@ -163,7 +167,7 @@ $(function () {
         var car_current_top = parseInt(car.css('top'));
         if(car_current_top > container_height){
             car_top = -200;  
-            var car_left = parseInt(Math.random() * 290);
+            var car_left = parseInt(Math.random() * 500);
         }else{
             car_top = car_current_top;
         }
