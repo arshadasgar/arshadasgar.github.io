@@ -17,6 +17,7 @@ $(function () {
     var score = $('#score');
 
     //saving some initial setup
+    var container_left = parseInt(container.css('left'));
     var container_width = parseInt(container.width());
     var container_height = parseInt(container.height());
     var car_width = parseInt(car.width());
@@ -166,8 +167,9 @@ $(function () {
     function car_down(car){
         var car_current_top = parseInt(car.css('top'));
         if(car_current_top > container_height){
-            car_top = -200;  
-            var car_left = parseInt(Math.random() * 500);
+            car_top = -200;
+            var new_left = parseInt(Math.random() * 500);
+            var car_left = ( (new_left > 0) && (new_left < container_width) ? new_left : parseInt(Math.random() * 100));
         }else{
             car_top = car_current_top;
         }

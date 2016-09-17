@@ -10,7 +10,7 @@ body {
     position: relative;
     height: 90vh;
     width: 20%;
-    margin-left: 35%;
+    left: 35%;
     margin-top: 20px;;
     background-color: #292929;
     overflow: hidden;
