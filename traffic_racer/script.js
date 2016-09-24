@@ -169,7 +169,7 @@ $(function () {
         if(car_current_top > container_height){
             car_top = -200;
             var new_left = parseInt(Math.random() * 500);
-            var car_left = ( (new_left > 0) && (new_left < container_width) ? new_left : parseInt(Math.random() * 50));
+            var car_left = ( (new_left > 0) && (new_left + car_width < container_width) ? new_left : parseInt(Math.random() * 100));
         }else{
             car_top = car_current_top;
         }
