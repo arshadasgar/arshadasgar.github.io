@@ -147,7 +147,7 @@ $(function () {
             if(score_counter % 20 == 0){
                 score.text(parseInt(score.text()) + 1);
             }
-            if(score_counter % 1000 == 0){
+            if(score_counter % 500 == 0){
             	speed++;
             	line_speed++;
             }
