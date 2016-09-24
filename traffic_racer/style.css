@@ -51,7 +51,7 @@ body {
     position: absolute;
     height: 60px;
     width: 40px;
-    border-radius: 5px;;
+    border-radius: 5px;
     box-shadow: 0px 1px 8px 0px black;
 }
 #car{
@@ -175,3 +175,21 @@ body {
     margin-left: 20%;
     font-size: 35px;
 }
+/*#car_1{
+	animation: example 1s infinite;
+}
+@-webkit-keyframes example {
+    0%   { background-color:red; }
+    25%  { background-color:yellow; }
+    50%  { background-color:white; }
+    75%  { background-color:green; }
+    100% { background-color:red; }
+}
+@keyframes example {
+    0%   { background-color:red; }
+    25%  { background-color:yellow; }
+    50%  { background-color:white; }
+    75%  { background-color:green; }
+    100% { background-color:red; }
+}
+*/
