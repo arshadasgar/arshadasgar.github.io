@@ -158,4 +158,8 @@ body {
     margin-top: 20%;
     margin-left: 20%;
     font-size: 35px;
+    background-color: white;
+    color: #454545;
+    padding: 10px;
+    box-shadow: 4px 4px 0px 1px #808080;
 }
