@@ -23,28 +23,12 @@ $(function () {
     var car_width = parseInt(car.width());
     var car_height = parseInt(car.height());
     
-    var car_1_top;
-    var car_2_top;
-    
-    var car_1_left;
-    var car_2_left;
-    var car_3_left;
-   
-    var car_1_top_initial = parseInt(car_1.css('top'));
-    var car_2_top_initial = parseInt(car_2.css('top'));
-    var car_3_top_initial = parseInt(car_3.css('top'));
-    
-    var car_1_left_initial = parseInt(car_1.css('left'));
-    var car_2_left_initial = parseInt(car_2.css('left'));
-    var car_3_left_initial = parseInt(car_3.css('left'));
-    
     //some other declarations
     var game_over = false;
     
     var score_counter = 1;
     
     var speed = 2;
-
     var line_speed = 5;
 
     var move_right = false;
@@ -151,22 +135,21 @@ $(function () {
     function car_down(car){
         var car_current_top = parseInt(car.css('top'));
         if(car_current_top > container_height){
-            car_top = -200;
+            var car_top = -200;
             var car_left = parseInt(Math.random() * (container_width - car_width));
+            car.css('left', car_left);
         }else{
-            car_top = car_current_top;
+            var car_top = car_current_top;
         }
         car.css('top', car_top + speed);
-        car.css('left', car_left);
     }
     
     function line_down(line){
-        var line_top;
         var line_current_top = parseInt(line.css('top'));
         if(line_current_top > container_height){
-            line_top = -300;    
+            var line_top = -300;    
         }else{
-            line_top = line_current_top;
+            var line_top = line_current_top;
         }
         line.css('top', line_top + line_speed);
     }
