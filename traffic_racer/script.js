@@ -38,35 +38,19 @@ $(function () {
     var car_2_left_initial = parseInt(car_2.css('left'));
     var car_3_left_initial = parseInt(car_3.css('left'));
     
-    /*var line_1_top_initial = parseInt(line_1.css('top'));
-    var line_2_top_initial = parseInt(line_2.css('top'));
-    var line_3_top_initial = parseInt(line_3.css('top'));*/
-    
-    var line_1_top_initial = -300;
-    var line_2_top_initial = -300;
-    var line_3_top_initial = -300;
-
     //some other declarations
     var game_over = false;
-    
-    var count_1 = 1;
-    var count_2 = 1;
     
     var score_counter = 1;
     
     var speed = 2;
 
-    var speed_1 = 2;
-    var speed_2 = 2;
-    
     var line_speed = 5;
 
     var move_right = false;
     var move_left = false;
     var move_up = false;
     var move_down = false;
-
-    var who_won;
 
     /* ------------------------------GAME CODE STARTS HERE------------------------------------------- */
 
@@ -168,8 +152,7 @@ $(function () {
         var car_current_top = parseInt(car.css('top'));
         if(car_current_top > container_height){
             car_top = -200;
-            var new_left = parseInt(Math.random() * 500);
-            var car_left = ( (new_left > 0) && (new_left + car_width < container_width) ? new_left : parseInt(Math.random() * 100));
+            var car_left = parseInt(Math.random() * (container_width - car_width));
         }else{
             car_top = car_current_top;
         }
