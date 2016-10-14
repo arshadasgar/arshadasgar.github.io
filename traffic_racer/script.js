@@ -135,23 +135,19 @@ $(function () {
     function car_down(car){
         var car_current_top = parseInt(car.css('top'));
         if(car_current_top > container_height){
-            var car_top = -200;
+            car_current_top = -200;
             var car_left = parseInt(Math.random() * (container_width - car_width));
             car.css('left', car_left);
-        }else{
-            var car_top = car_current_top;
         }
-        car.css('top', car_top + speed);
+        car.css('top', car_current_top + speed);
     }
     
     function line_down(line){
         var line_current_top = parseInt(line.css('top'));
         if(line_current_top > container_height){
-            var line_top = -300;    
-        }else{
-            var line_top = line_current_top;
+            line_current_top = -300;    
         }
-        line.css('top', line_top + line_speed);
+        line.css('top', line_current_top + line_speed);
     }
 
     restart_btn.click(function () {
