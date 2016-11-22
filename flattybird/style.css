@@ -58,3 +58,6 @@ body {
     cursor: pointer;
     display: none;
 }
+#help{
+	text-align: center;
+}
