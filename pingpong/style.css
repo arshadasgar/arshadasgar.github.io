@@ -3,6 +3,7 @@ body {
     width: 100%;
     margin: 0;
     background-color: #C52222;
+    font-family: sans-serif;
 }
 
 #container {
@@ -67,4 +68,9 @@ body {
 	background-color: #C52222;
 	padding: 15px;
 	cursor: pointer;
+}
+#help{
+	text-align: center;
+	color: white;
+	margin-top: 5%;
 }
