@@ -35,8 +35,8 @@ $(function () {
     var bird_go = 'down';
     var bird_right_left = 'right';
 
-    var top_angle = 6; // 7 - 14 ??? 
-    var right_left_angle = 0; //0 - 20 
+    var top_angle = 6; // 7 - 14 ???
+    var right_left_angle = 0; //0 - 20
 
     var move_right = false;
     var move_left = false;
@@ -69,8 +69,7 @@ $(function () {
                 right_left_angle = Math.abs((pleft - bleft)) / 7; //console.log(right_left_angle);
                 bird_go = 'up';
 
-            } else
-            if (parseInt(bird.css('left')) <= 0) {
+            } else if (parseInt(bird.css('left')) <= 0) {
 
                 bird_right_left = 'right';
 
@@ -150,7 +149,6 @@ $(function () {
     });
 
 
-
     $(document).on('keyup', function (e) {
         var key = e.keyCode;
         if (key === 37 && game_over === false) {
@@ -167,8 +165,6 @@ $(function () {
             move_right1 = false;
         }
     });
-
-    /*sadassadasasd*/
 
     function bird_up() {
         bird.css('top', parseInt(bird.css('top')) - (top_angle));
@@ -188,10 +184,6 @@ $(function () {
         }
     }
 
-
-
-
-
     function stop_the_game() {
 
         cancelAnimationFrame(anim_id);
@@ -201,7 +193,6 @@ $(function () {
         cancelAnimationFrame(move_left1);
         game_over = true;
         restart_btn.html('<span>Player ' + who_won + ' won</span><br><br><span id="winner">Restart</span>').show();
-
 
     }
 
@@ -226,7 +217,5 @@ $(function () {
         if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
         return true;
     }
-
-
 
 });

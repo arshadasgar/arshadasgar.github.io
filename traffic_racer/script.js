@@ -1,5 +1,5 @@
 /* Arshad Muhammed */
-$(function () {
+$(function() {
 
     var anim_id;
 
@@ -22,12 +22,12 @@ $(function () {
     var container_height = parseInt(container.height());
     var car_width = parseInt(car.width());
     var car_height = parseInt(car.height());
-    
+
     //some other declarations
     var game_over = false;
-    
+
     var score_counter = 1;
-    
+
     var speed = 2;
     var line_speed = 5;
 
@@ -39,7 +39,7 @@ $(function () {
     /* ------------------------------GAME CODE STARTS HERE------------------------------------------- */
 
     /* Move the cars */
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if (game_over === false) {
             var key = e.keyCode;
             if (key === 37 && move_left === false) {
@@ -54,7 +54,7 @@ $(function () {
         }
     });
 
-    $(document).on('keyup', function (e) {
+    $(document).on('keyup', function(e) {
         if (game_over === false) {
             var key = e.keyCode;
             if (key === 37) {
@@ -74,7 +74,7 @@ $(function () {
     });
 
     function left() {
-    	  if (game_over === false && parseInt(car.css('left')) > 0) {
+        if (game_over === false && parseInt(car.css('left')) > 0) {
             car.css('left', parseInt(car.css('left')) - 5);
             move_left = requestAnimationFrame(left);
         }
@@ -86,14 +86,14 @@ $(function () {
             move_right = requestAnimationFrame(right);
         }
     }
-    
+
     function up() {
         if (game_over === false && parseInt(car.css('top')) > 0) {
             car.css('top', parseInt(car.css('top')) - 3);
             move_up = requestAnimationFrame(up);
         }
     }
-    
+
     function down() {
         if (game_over === false && parseInt(car.css('top')) < container_height - car_height) {
             car.css('top', parseInt(car.css('top')) + 3);
@@ -105,52 +105,51 @@ $(function () {
     anim_id = requestAnimationFrame(repeat);
 
     function repeat() {
-        if (game_over === false) {
-            if (collision(car, car_1) || collision(car, car_2) || collision(car, car_3)) {
-                stop_the_game();
-            }
-            
-            score_counter++;
-            
-            if(score_counter % 20 == 0){
-                score.text(parseInt(score.text()) + 1);
-            }
-            if(score_counter % 500 == 0){
-            	speed++;
-            	line_speed++;
-            }
-            
-            car_down(car_1);   
-            car_down(car_2);
-            car_down(car_3);
-            
-            line_down(line_1);
-            line_down(line_2);
-            line_down(line_3);
-
-            anim_id = requestAnimationFrame(repeat);
+        if (collision(car, car_1) || collision(car, car_2) || collision(car, car_3)) {
+            stop_the_game();
+            return;
         }
+
+        score_counter++;
+
+        if (score_counter % 20 == 0) {
+            score.text(parseInt(score.text()) + 1);
+        }
+        if (score_counter % 500 == 0) {
+            speed++;
+            line_speed++;
+        }
+
+        car_down(car_1);
+        car_down(car_2);
+        car_down(car_3);
+
+        line_down(line_1);
+        line_down(line_2);
+        line_down(line_3);
+
+        anim_id = requestAnimationFrame(repeat);
     }
-    
-    function car_down(car){
+
+    function car_down(car) {
         var car_current_top = parseInt(car.css('top'));
-        if(car_current_top > container_height){
+        if (car_current_top > container_height) {
             car_current_top = -200;
             var car_left = parseInt(Math.random() * (container_width - car_width));
             car.css('left', car_left);
         }
         car.css('top', car_current_top + speed);
     }
-    
-    function line_down(line){
+
+    function line_down(line) {
         var line_current_top = parseInt(line.css('top'));
-        if(line_current_top > container_height){
-            line_current_top = -300;    
+        if (line_current_top > container_height) {
+            line_current_top = -300;
         }
         line.css('top', line_current_top + line_speed);
     }
 
-    restart_btn.click(function () {
+    restart_btn.click(function() {
         location.reload();
     });
 
@@ -164,7 +163,7 @@ $(function () {
         restart_div.slideDown();
         restart_btn.focus();
     }
-    
+
     /* ------------------------------GAME CODE ENDS HERE------------------------------------------- */
 
 
