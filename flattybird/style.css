@@ -61,3 +61,10 @@ body {
 #help{
 	text-align: center;
 }
+#donate{
+    position: absolute;
+    right: 10px;
+    bottom: 25px;
+    background: rgba(212, 212, 212, 0.43);
+    padding: 12px;
+}
