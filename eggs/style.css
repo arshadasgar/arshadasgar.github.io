@@ -112,6 +112,14 @@ body {
     background-color: #eaeaea;
 }
 
+#donate {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    background-color: white;
+    padding: 10px;
+}
+
 #restart {
     border: 0;
     position: absolute;
