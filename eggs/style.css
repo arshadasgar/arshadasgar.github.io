@@ -13,6 +13,7 @@ body {
     position: relative;
     border: 1px solid red;
     overflow: hidden;
+    background-color: #cef6fd;
 }
 
 #basket {
@@ -27,9 +28,10 @@ body {
 .hen {
     position: absolute;
     height: 15%;
-    width: 10%;
+    width: 7%;
     background-color: #444afb;
     top: 10%;
+    border-radius: 30% 30% 20% 20%;
 }
 
 #hen1 {
@@ -44,25 +46,64 @@ body {
     left: 60%;
 }
 
+.head {
+    position: absolute;
+    height: 30%;
+    width: 35%;
+    background-color: #a8aace;
+    left: 33%;
+    top: -25px;
+    border-radius: 50% 50% 20% 20%;
+}
+
+.beak {
+    position: absolute;
+    height: 40%;
+    width: 35%;
+    background-color: #444afb;
+    right: -9px;
+    top: 10px;
+    border-radius: 0 100% 0 0;
+}
+
+.tail {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    background-color: #373c98;
+    bottom: -31px;
+    border-radius: 0 0 100% 100%;
+    z-index: 100;
+}
+
+#branch {
+    position: absolute;
+    height: 2%;
+    width: 100%;
+    background-color: #7b2e00;
+    top: 23%;
+}
+
 .egg {
     position: absolute;
-    top: 22%;
-    height: 4%;
+    top: 25%;
+    height: 5%;
     width: 2%;
-    background-color: fuchsia;
+    background-color: #e0c2c2;
     border-radius: 50%;
+    z-index: 99;
 }
 
 #egg1 {
-    left: calc(20% + 10%/2 - 2%/2);
+    left: calc(20% + 7%/2 - 2%/2);
 }
 
 #egg2 {
-    left: calc(40% + 10%/2 - 2%/2);
+    left: calc(40% + 7%/2 - 2%/2);
 }
 
 #egg3 {
-    left: calc(60% + 10%/2 - 2%/2);
+    left: calc(60% + 7%/2 - 2%/2);
 }
 
 #score_help {

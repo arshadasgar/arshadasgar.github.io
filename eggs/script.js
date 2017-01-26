@@ -14,9 +14,11 @@ $(function() {
         egg_initial_position = parseInt(eggs.css('top')),
         score_span = $('#score'),
         life_span = $('#life'),
-        score = life = 10,
+        score = 0,
+        life = 10,
         score_updated = false,
         the_game, anim_id, egg_current_position;
+    life_span.text(life);
 
     the_game = function() {
 
@@ -46,7 +48,8 @@ $(function() {
             set_egg_to_initial_position(egg3);
         }
 
-        anim_id = requestAnimationFrame(the_game);
+        if (life)
+            anim_id = requestAnimationFrame(the_game);
     };
 
     anim_id = requestAnimationFrame(the_game);
@@ -70,6 +73,8 @@ $(function() {
         set_egg_to_initial_position(egg, false);
         score = score + 1;
         score_span.text(score);
+        if (score % 5 === 0)
+            life = life + 1;
     }
 
     function set_egg_to_initial_position(egg, update_life_flag = true) {
@@ -80,9 +85,10 @@ $(function() {
 
     function update_life() {
         life = life - 1;
-        life_span.text(life);
-        if (life == 0) {
-            stop_the_game();
+        if (life < 0) {
+            life = 0;
+        } else {
+            life_span.text(life);
         }
     }
 
