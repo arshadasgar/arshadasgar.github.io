@@ -1,0 +1,80 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#container {
+    height: 90%;
+    width: 90%;
+    margin-left: 5%;
+    position: relative;
+    border: 1px solid red;
+    overflow: hidden;
+}
+
+#basket {
+    height: 150px;
+    width: 120px;
+    position: absolute;
+    bottom: 0;
+    background-color: #db6821;
+    border-radius: 0 0 20% 20%;
+}
+
+#hen_container {
+    position: absolute;
+    top: 5px;
+    height: 200px;
+    width: 100%;
+    border-bottom: 5px solid red;
+}
+
+.hen {
+    position: absolute;
+    height: 15%;
+    width: 10%;
+    background-color: #444afb;
+    top: 10%;
+}
+
+#hen1 {
+    left: 20%;
+}
+
+#hen2 {
+    left: 40%;
+}
+
+#hen3 {
+    left: 60%;
+}
+
+.egg {
+    position: absolute;
+    top: 22%;
+    height: 4%;
+    width: 2%;
+    background-color: fuchsia;
+    border-radius: 50%;
+}
+
+#egg1 {
+    left: calc(20% + 10%/2 - 2%/2);
+}
+
+#egg2 {
+    left: calc(40% + 10%/2 - 2%/2);
+}
+
+#egg3 {
+    left: calc(60% + 10%/2 - 2%/2);
+}
+
+#score_help {
+    text-align: center;
+    font-size: 25px;
+    background-color: #eaeaea;
+}
