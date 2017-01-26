@@ -24,14 +24,6 @@ body {
     border-radius: 0 0 20% 20%;
 }
 
-#hen_container {
-    position: absolute;
-    top: 5px;
-    height: 200px;
-    width: 100%;
-    border-bottom: 5px solid red;
-}
-
 .hen {
     position: absolute;
     height: 15%;
