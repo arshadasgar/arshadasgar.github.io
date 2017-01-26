@@ -111,3 +111,16 @@ body {
     font-size: 25px;
     background-color: #eaeaea;
 }
+
+#restart {
+    border: 0;
+    position: absolute;
+    height: 10%;
+    width: 100%;
+    background-color: fuchsia;
+    color: white;
+    top: 40%;
+    font-size: 35px;
+    display: none;
+    cursor: pointer;
+}

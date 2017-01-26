@@ -6,6 +6,7 @@ $(function() {
         egg1 = $('#egg1'),
         egg2 = $('#egg2'),
         egg3 = $('#egg3'),
+        restart = $('#restart'),
         basket_width = basket.width(),
         basket_height = basket.height(),
         hen_height = hen.height(),
@@ -21,7 +22,7 @@ $(function() {
     life_span.text(life);
 
     the_game = function() {
-
+        console.log('animation');
         // Eggs down
         egg_down(egg1);
         egg_down(egg2);
@@ -48,14 +49,21 @@ $(function() {
             set_egg_to_initial_position(egg3);
         }
 
-        if (life)
+        if (life) {
             anim_id = requestAnimationFrame(the_game);
+        } else {
+            stop_the_game();
+        }
     };
 
     anim_id = requestAnimationFrame(the_game);
 
     $(document).mousemove(function(e) {
         basket.css('left', e.pageX - basket_width / 2);
+    });
+
+    restart.click(function() {
+        location.reload();
     });
 
     function egg_down(egg) {
@@ -93,7 +101,7 @@ $(function() {
     }
 
     function stop_the_game() {
-        console.log(1212);
         cancelAnimationFrame(anim_id);
+        $('#restart').slideDown();
     }
 });
