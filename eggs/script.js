@@ -1,4 +1,5 @@
 $(function() {
+
     var basket = $('#basket'),
         container = $('#container'),
         hen = $('.hen'),
@@ -16,17 +17,22 @@ $(function() {
         score_span = $('#score'),
         life_span = $('#life'),
         score = 0,
-        life = 10,
+        life = 20,
+        counter = 0,
         score_updated = false,
         the_game, anim_id, egg_current_position;
+
     life_span.text(life);
 
     the_game = function() {
-        console.log('animation');
+        counter++;
         // Eggs down
-        egg_down(egg1);
-        egg_down(egg2);
-        egg_down(egg3);
+        if (counter > 10)
+            egg_down(egg1);
+        if (counter > 80)
+            egg_down(egg2);
+        if (counter > 30)
+            egg_down(egg3);
 
         //Check eggs fall in basket
         if (check_catch(egg1)) {
@@ -68,7 +74,7 @@ $(function() {
 
     function egg_down(egg) {
         egg_current_position = parseInt(egg.css('top'));
-        egg.css('top', egg_current_position + 5);
+        egg.css('top', egg_current_position + 3);
     }
 
     function check_catch(egg) {
@@ -86,9 +92,10 @@ $(function() {
     }
 
     function set_egg_to_initial_position(egg, update_life_flag = true) {
-        egg.css('top', egg_initial_position);
-        if (update_life_flag)
+        if (update_life_flag) {
             update_life();
+        }
+        egg.css('top', egg_initial_position);
     }
 
     function update_life() {
