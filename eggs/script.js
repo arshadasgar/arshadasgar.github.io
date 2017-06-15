@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
     var basket = $('#basket'),
         container = $('#container'),
@@ -8,24 +8,32 @@ $(function() {
         egg2 = $('#egg2'),
         egg3 = $('#egg3'),
         restart = $('#restart'),
+        score_span = $('#score'),
+        score_1 = $('#score_1'),
+        life_span = $('#life'),
+
         basket_width = basket.width(),
         basket_height = basket.height(),
         hen_height = hen.height(),
         container_height = container.height(),
         egg_height = eggs.height(),
         egg_initial_position = parseInt(eggs.css('top')),
-        score_span = $('#score'),
-        life_span = $('#life'),
+
         score = 0,
         life = 20,
+        speed = 3,
         counter = 0,
         score_updated = false,
+
         the_game, anim_id, egg_current_position;
 
     life_span.text(life);
 
-    the_game = function() {
+    the_game = function () {
+
         counter++;
+
+
         // Eggs down
         if (counter > 10)
             egg_down(egg1);
@@ -64,17 +72,17 @@ $(function() {
 
     anim_id = requestAnimationFrame(the_game);
 
-    $(document).mousemove(function(e) {
+    $(document).mousemove(function (e) {
         basket.css('left', e.pageX - basket_width / 2);
     });
 
-    restart.click(function() {
+    restart.click(function () {
         location.reload();
     });
 
     function egg_down(egg) {
         egg_current_position = parseInt(egg.css('top'));
-        egg.css('top', egg_current_position + 3);
+        egg.css('top', egg_current_position + speed);
     }
 
     function check_catch(egg) {
@@ -87,8 +95,13 @@ $(function() {
         set_egg_to_initial_position(egg, false);
         score = score + 1;
         score_span.text(score);
-        if (score % 5 === 0)
+        score_1.text(score);
+        if (score % 5 === 0) {
             life = life + 1;
+        }
+        if (score % 10 === 0) {
+            speed = speed + 1;
+        }
     }
 
     function set_egg_to_initial_position(egg, update_life_flag = true) {

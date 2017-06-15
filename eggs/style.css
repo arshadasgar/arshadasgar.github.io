@@ -13,25 +13,41 @@ body {
     position: relative;
     border: 1px solid red;
     overflow: hidden;
-    background-color: #cef6fd;
+    background-color: #31b6ce;
 }
 
 #basket {
     height: 100px;
-    width: 120px;
+    width: 85px;
     position: absolute;
     bottom: 0;
-    background-color: #db6821;
+    /*background-color: #db6821;*/
+    background: url('basket.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 0 0 20% 20%;
+    text-align: center;
+}
+
+#score_1 {
+    position: absolute;
+    color: #424242;
+    font-size: 30px;
+    top: 45%;
+    left: 30%;
 }
 
 .hen {
     position: absolute;
     height: 15%;
-    width: 7%;
-    background-color: #444afb;
+    width: 8%;
+    /*background-color: #444afb;*/
     top: 10%;
-    border-radius: 30% 30% 20% 20%;
+    /*border-radius: 30% 30% 20% 20%;*/
+    background: url('hen-right.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 100;
 }
 
 #hen1 {
@@ -46,36 +62,6 @@ body {
     left: 60%;
 }
 
-.head {
-    position: absolute;
-    height: 30%;
-    width: 35%;
-    background-color: #a8aace;
-    left: 33%;
-    top: -25px;
-    border-radius: 50% 50% 20% 20%;
-}
-
-.beak {
-    position: absolute;
-    height: 40%;
-    width: 35%;
-    background-color: #444afb;
-    right: -9px;
-    top: 10px;
-    border-radius: 0 100% 0 0;
-}
-
-.tail {
-    position: absolute;
-    height: 50%;
-    width: 100%;
-    background-color: #373c98;
-    bottom: -31px;
-    border-radius: 0 0 100% 100%;
-    z-index: 100;
-}
-
 #branch {
     position: absolute;
     height: 2%;
@@ -86,10 +72,10 @@ body {
 
 .egg {
     position: absolute;
-    top: 25%;
+    top: 18%;
     height: 5%;
     width: 2%;
-    background-color: #dc3d3d;
+    background-color: #fff;
     border-radius: 50%;
     z-index: 99;
 }
