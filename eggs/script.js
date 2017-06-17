@@ -91,7 +91,7 @@ $(function () {
         if (score % 5 === 0) {
             life = life + 1;
         }
-        if (score % 10 === 0) {
+        if (score % 20 === 0) {
             speed = speed + 1;
         }
     }

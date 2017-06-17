@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Flattybird - Canvas</title>
+<style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+
+    }
+    .container {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    #can {
+        display: block;
+        padding: 0;
+        margin: 0 auto;
+        border: 1px solid red;
+	 }
+
+    @media(max-width:1200px) {
+        .container{
+            margin: 0 50px;
+        }
+        #can {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+</head>
+<body>
+	<div class="container">
+		<canvas id="can" width="800" height="500"></canvas>
+	</div>
+
+<p>
+<button id="start_game">
+  START
+</button>
+<button id="stop_game">
+  PAUSE
+</button>
+<button id="restart_game">
+  RESTART
+</button>
+</p>
+<p>
+  Score:
+  <span id="score">0</span>
+</p>
+	
+	
+	<script src="jquery.min.js"></script>
+	<script src="script.js"></script>
+
+</body>
+</html>
