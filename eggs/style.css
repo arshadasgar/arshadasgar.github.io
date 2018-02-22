@@ -16,34 +16,25 @@ body {
     background-color: #31b6ce;
 }
 
-#basket {
-    height: 100px;
-    width: 85px;
-    position: absolute;
-    bottom: 0;
-    /*background-color: #db6821;*/
-    background: url('basket.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 0 0 20% 20%;
+#score_help {
     text-align: center;
+    font-size: 25px;
+    background-color: #eaeaea;
 }
 
-#score_1 {
+#branch {
     position: absolute;
-    color: #424242;
-    font-size: 30px;
-    top: 45%;
-    left: 30%;
+    height: 2%;
+    width: 100%;
+    background-color: #7b2e00;
+    top: 23%;
 }
 
 .hen {
     position: absolute;
     height: 15%;
     width: 8%;
-    /*background-color: #444afb;*/
     top: 10%;
-    /*border-radius: 30% 30% 20% 20%;*/
     background: url('hen-right.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -62,14 +53,6 @@ body {
     left: 60%;
 }
 
-#branch {
-    position: absolute;
-    height: 2%;
-    width: 100%;
-    background-color: #7b2e00;
-    top: 23%;
-}
-
 .egg {
     position: absolute;
     top: 18%;
@@ -81,61 +64,68 @@ body {
 }
 
 #egg1 {
-    left: calc(20% + 7%/2 - 2%/2);
+    left: calc(20% + 8%/2 - 2%/2);
 }
 
 #egg2 {
-    left: calc(40% + 7%/2 - 2%/2);
+    left: calc(40% + 8%/2 - 2%/2);
 }
 
 #egg3 {
-    left: calc(60% + 7%/2 - 2%/2);
+    left: calc(60% + 8%/2 - 2%/2);
 }
 
 .bullseye {
     display: none;
     position: absolute;
-    bottom: 0;
-    height: 4%;
+    bottom: 0px;
+    height: 7%;
     width: 7%;
-    background-color: white;
-    border-radius: 50%;
+    background: url('bullseye1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 11;
 }
 
 #bullseye1 {
-    left: calc(20% + 7%/2 - 7%/2);
+    left: calc(20% + 8%/2 - 7%/2);
 }
 
 #bullseye2 {
-    left: calc(40% + 7%/2 - 7%/2);
+    left: calc(40% + 8%/2 - 7%/2);
 }
 
 #bullseye3 {
-    left: calc(60% + 7%/2 - 7%/2);
+    left: calc(60% + 8%/2 - 7%/2);
 }
 
-.eye {
+#floor {
     position: absolute;
-    background-color: orange;
-    height: 50%;
-    width: 50%;
-    border-radius: 50%;
-    top: 25%;
-    left: 25%;
+    height: 7%;
+    width: 100%;
+    background-color: #292929;
+    bottom: 0;
+    z-index: 10;
 }
 
-#score_help {
+#basket {
+    height: 100px;
+    width: 85px;
+    position: absolute;
+    bottom: 5px;
+    background: url('basket.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     text-align: center;
-    font-size: 25px;
-    background-color: #eaeaea;
+    z-index: 11;
 }
 
-#donate {
+#score_1 {
     position: absolute;
-    right: 10px;
-    top: 15px;
-    background-color: white;
-    padding: 10px;
+    color: #424242;
+    font-size: 30px;
+    top: 45%;
+    left: 30%;
 }
 
 #restart {
