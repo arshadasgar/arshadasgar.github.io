@@ -11,30 +11,30 @@ $(function () {
     var snakeWidth = 10;
     var disp = 10;
     var direction = 'down';
-    var keyReleased = true;
+    var score = 0;
     var keyPressed = 40;
     var snake = [{
-            x: 10,
-            y: 40,
-            oldX: 0,
-            oldY: 0
-        }, {
-            x: 10,
-            y: 30,
-            oldX: 0,
-            oldY: 0
-        }, {
-            x: 10,
-            y: 20,
-            oldX: 0,
-            oldY: 0
-        },
-        {
-            x: 10,
-            y: 10,
-            oldX: 0,
-            oldY: 0
-        },
+        x: 200,
+        y: 40,
+        oldX: 0,
+        oldY: 0
+    }, {
+        x: 200,
+        y: 30,
+        oldX: 0,
+        oldY: 0
+    }, {
+        x: 200,
+        y: 20,
+        oldX: 0,
+        oldY: 0
+    },
+    {
+        x: 200,
+        y: 10,
+        oldX: 0,
+        oldY: 0
+    },
     ];
     var food = {
         x: 0,
@@ -64,6 +64,7 @@ $(function () {
     function fillSnake() {
         console.log('Loop running')
         clearCanvas();
+        fillScore();
         fillFood();
         ctx.fillStyle = 'yellow';
         $.each(snake, function (index, value) {
@@ -76,6 +77,7 @@ $(function () {
                     stopGame();
                 }
                 if (eaten(value.x, value.y)) {
+                    score++;
                     food.eaten = true;
                     addToSnake();
                 }
@@ -157,6 +159,16 @@ $(function () {
         return result;
     }
 
+    function fillScore() {
+        ctx.font = 'bold 102px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(255,255,255, 0.2)';
+        let x = cWidth / 2;
+        let y = cHeight / 2;
+        ctx.fillText(score, x, y);
+    }
+
     function clearCanvas() {
         ctx.clearRect(0, 0, cWidth, cHeight);
     }
@@ -192,13 +204,13 @@ $(function () {
                 goLeft();
             }
         } else {
-            if(direction == 'down') {
+            if (direction == 'down') {
                 goDown();
-            } else if(direction == 'up') {
+            } else if (direction == 'up') {
                 goUp();
-            } else if(direction == 'left') {
+            } else if (direction == 'left') {
                 goLeft();
-            } else if(direction == 'right') {
+            } else if (direction == 'right') {
                 goRight();
             }
         }
