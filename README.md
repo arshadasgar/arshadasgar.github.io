@@ -1,4 +1,4 @@
-#Games online demo
+# Games online demo
 
 * **Flattybird**: https://arshadasgar.github.io/flattybird/  
 * **Traffic racer**: https://arshadasgar.github.io/traffic_racer/  
@@ -6,7 +6,7 @@
 * **Catch the eggs**: https://arshadasgar.github.io/eggs/  
 * **Snake**: https://arshadasgar.github.io/snake/  
 
-#Video Tutorials on Youtube
+# Video Tutorials on Youtube
 
 * **Flattybird**: https://www.youtube.com/watch?v=Wrzr-QBVNNM&t=2s  
 * **Traffic racer**: https://www.youtube.com/watch?v=oWaGkW1YDmk  
