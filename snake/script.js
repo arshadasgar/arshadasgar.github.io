@@ -11,6 +11,7 @@ $(function () {
     var direction = 'down';
     var score = 0;
     var keyPressed = 40;
+    var keyPressPending = false;
     var snake = [
         { x: 200, y: 40, oldX: 0, oldY: 0 },
         { x: 200, y: 30, oldX: 0, oldY: 0 },
@@ -62,6 +63,9 @@ $(function () {
             } else {
                 snake[index].x = snake[index - 1].oldX;
                 snake[index].y = snake[index - 1].oldY;
+            }
+            if (index == snake.length - 1) {
+                keyPressPending = false;
             }
         });
     }
@@ -158,10 +162,12 @@ $(function () {
 
     $(document).keydown(function (e) {
         keyPressed = e.which;
-        moveSnake(keyPressed);
+        if (keyPressPending == false)
+            moveSnake(keyPressed);
     });
 
     function moveSnake(keyPressed) {
+        keyPressPending = true;
         if (keyPressed == 40) {
             if (direction != 'up') {
                 moveDown();
