@@ -1,4 +1,4 @@
-# Games online demo
+# Online demo of games
 
 * **Flattybird**: [https://arshadasgar.github.io/flattybird/](https://arshadasgar.github.io/flattybird/)  
 * **Traffic racer**: [https://arshadasgar.github.io/traffic_racer/](https://arshadasgar.github.io/traffic_racer/)  
