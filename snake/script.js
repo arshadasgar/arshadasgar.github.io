@@ -12,11 +12,34 @@ $(function () {
     var score = 0;
     var keyPressed = 40;
     var keyPressPending = false;
-    var snake = [
-        { x: 200, y: 40, oldX: 0, oldY: 0, drawn: false },
-        { x: 200, y: 30, oldX: 0, oldY: 0, drawn: false },
-        { x: 200, y: 20, oldX: 0, oldY: 0, drawn: false },
-        { x: 200, y: 10, oldX: 0, oldY: 0, drawn: false },
+    var snake = [{
+            x: 200,
+            y: 40,
+            oldX: 0,
+            oldY: 0,
+            drawn: false
+        },
+        {
+            x: 200,
+            y: 30,
+            oldX: 0,
+            oldY: 0,
+            drawn: false
+        },
+        {
+            x: 200,
+            y: 20,
+            oldX: 0,
+            oldY: 0,
+            drawn: false
+        },
+        {
+            x: 200,
+            y: 10,
+            oldX: 0,
+            oldY: 0,
+            drawn: false
+        },
     ];
     var food = {
         x: 50,
