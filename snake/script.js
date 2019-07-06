@@ -1,94 +1,81 @@
 $(function () {
 
-    var debug = true;
-
     var canvas = $('#canvas')[0];
     var ctx = canvas.getContext('2d');
 
-    var cHeight = 400;
-    var cWidth = 600;
+    var cHeight = canvas.height;
+    var cWidth = canvas.width;
     var snakeHeight = 10;
     var snakeWidth = 10;
-    var disp = 10;
+    var blockSize = 10;
     var direction = 'down';
-    var keyReleased = true;
+    var score = 0;
     var keyPressed = 40;
-    var snake = [{
-            x: 10,
-            y: 40,
-            oldX: 0,
-            oldY: 0
-        }, {
-            x: 10,
-            y: 30,
-            oldX: 0,
-            oldY: 0
-        }, {
-            x: 10,
-            y: 20,
-            oldX: 0,
-            oldY: 0
-        },
-        {
-            x: 10,
-            y: 10,
-            oldX: 0,
-            oldY: 0
-        },
+    var keyPressPending = false;
+    var snake = [
+        { x: 200, y: 40, oldX: 0, oldY: 0, drawn: false },
+        { x: 200, y: 30, oldX: 0, oldY: 0, drawn: false },
+        { x: 200, y: 20, oldX: 0, oldY: 0, drawn: false },
+        { x: 200, y: 10, oldX: 0, oldY: 0, drawn: false },
     ];
     var food = {
-        x: 0,
-        y: 0,
-        eaten: true
+        x: 50,
+        y: 50,
+        eaten: false
     };
-    var gameLoop;
 
-    init();
+    var game;
 
-    function init() {
-        startGame();
-    }
+    startGame();
 
     function startGame() {
-        // gameLoop = requestAnimationFrame(fillSnake);
-        gameLoop = setInterval(fillSnake, 100);
+        game = setInterval(gameLoop, 1000);
     }
 
     function stopGame() {
-        // cancelAnimationFrame(gameLoop);
-        clearInterval(gameLoop);
+        clearInterval(game);
+        console.log('Game over');
     }
 
-    var counter = 0;
-
-    function fillSnake() {
-        console.log('Loop running')
+    function gameLoop() {
         clearCanvas();
-        fillFood();
+        drawScore();
+        drawFood();
+        drawSnake();
+    }
+
+    function drawSnake() {
         ctx.fillStyle = 'yellow';
         $.each(snake, function (index, value) {
-            // debugger
             ctx.fillRect(value.x, value.y, snakeWidth, snakeHeight);
-            snake[index].oldX = value.x;
-            snake[index].oldY = value.y;
+            snake[index].drawn = true;
             if (index == 0) {
                 if (collided(value.x, value.y)) {
                     stopGame();
+                } else {
+                    if (caughtFood(value.x, value.y)) {
+                        updateScore();
+                        updateFoodEatenFlag();
+                        makeSnakeBigger();
+                    }
                 }
-                if (eaten(value.x, value.y)) {
-                    food.eaten = true;
-                    addToSnake();
-                }
-                changeDirection(keyPressed);
-            } else {
-                snake[index].x = snake[index - 1].oldX;
-                snake[index].y = snake[index - 1].oldY;
+            }
+            if (index == snake.length - 1) {
+                moveSnake(keyPressed, false);
+                keyPressPending = false;
             }
         });
-        // gameLoop = requestAnimationFrame(fillSnake);
     }
 
-    function addToSnake() {
+    function updateScore() {
+        score++;
+    }
+
+    function updateFoodEatenFlag() {
+        food.eaten = true;
+    }
+
+    function makeSnakeBigger() {
         snake.push({
             x: snake[snake.length - 1].x,
             y: snake[snake.length - 1].y
@@ -101,11 +88,11 @@ $(function () {
         }).length > 0 || x < 0 || x > cWidth || y < 0 || y > cHeight;
     }
 
-    function eaten(x, y) {
+    function caughtFood(x, y) {
         return (x == food.x && y == food.y);
     }
 
-    function fillFood() {
+    function drawFood() {
         ctx.fillStyle = 'red';
         xy = getPositionForFood();
         x = xy.x;
@@ -130,15 +117,14 @@ $(function () {
                     yArray.push(value.y);
                 }
             });
-            xy = getEmptyPosition(xArray, yArray);
-            return xy;
+            xy = getEmptyBlock(xArray, yArray);
         } else {
             xy = food;
         }
         return xy;
     }
 
-    function getEmptyPosition(xArray, yArray) {
+    function getEmptyBlock(xArray, yArray) {
         let newXY = {};
         newX = getRandomNumber(cWidth - 10, 10);
         newY = getRandomNumber(cHeight - 10, 10);
@@ -147,7 +133,7 @@ $(function () {
             newXY.y = newY;
             return newXY;
         } else {
-            return getEmptyPosition(xArray, yArray);
+            return getEmptyBlock(xArray, yArray);
         }
     }
 
@@ -157,75 +143,174 @@ $(function () {
         return result;
     }
 
+    function drawScore() {
+        ctx.font = 'bold 102px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(255,255,255, 0.2)';
+        let x = cWidth / 2;
+        let y = cHeight / 2;
+        ctx.fillText(score, x, y);
+    }
+
     function clearCanvas() {
         ctx.clearRect(0, 0, cWidth, cHeight);
     }
 
     $(document).keydown(function (e) {
         keyPressed = e.which;
-        changeDirection(keyPressed);
+        if (keyPressPending == false) {
+            moveSnake(keyPressed, true);
+        }
     });
 
-    function changeDirection(keyPressed) {
+    function moveSnake(keyPressed, keyPressEvent = false) {
+        keyPressPending = true;
         if (keyPressed == 40) {
             if (direction != 'up') {
-                goDown();
+                moveDown(keyPressEvent);
             } else {
-                goUp();
+                moveUp(keyPressEvent);
             }
         } else if (keyPressed == 38) {
             if (direction != 'down') {
-                goUp();
+                moveUp(keyPressEvent);
             } else {
-                goDown();
+                moveDown(keyPressEvent);
             }
         } else if (keyPressed == 37) {
             if (direction != 'right') {
-                goLeft();
+                moveLeft(keyPressEvent);
             } else {
-                goRight();
+                moveRight(keyPressEvent);
             }
         } else if (keyPressed == 39) {
             if (direction != 'left') {
-                goRight();
+                moveRight(keyPressEvent);
             } else {
-                goLeft();
+                moveLeft(keyPressEvent);
             }
         } else {
-            if(direction == 'down') {
-                goDown();
-            } else if(direction == 'up') {
-                goUp();
-            } else if(direction == 'left') {
-                goLeft();
-            } else if(direction == 'right') {
-                goRight();
+            if (direction == 'down') {
+                moveDown(keyPressEvent);
+            } else if (direction == 'up') {
+                moveUp(keyPressEvent);
+            } else if (direction == 'left') {
+                moveLeft(keyPressEvent);
+            } else if (direction == 'right') {
+                moveRight(keyPressEvent);
             }
         }
     }
 
-    function goDown() {
-        direction = 'down';
-        snake[0].x = snake[0].oldX;
-        snake[0].y = snake[0].oldY + disp;
+    function moveDown(keyPressEvent) {
+        moveHeadDown(keyPressEvent);
+        moveBody();
     }
 
-    function goUp() {
-        direction = 'up';
-        snake[0].x = snake[0].oldX;
-        snake[0].y = snake[0].oldY - disp;
+    function moveUp(keyPressEvent) {
+        moveHeadUp(keyPressEvent);
+        moveBody();
     }
 
-    function goLeft() {
-        direction = 'left';
-        snake[0].x = snake[0].oldX - disp;
-        snake[0].y = snake[0].oldY;
+    function moveLeft(keyPressEvent) {
+        moveHeadLeft(keyPressEvent);
+        moveBody();
     }
 
-    function goRight() {
-        direction = 'right';
-        snake[0].x = snake[0].oldX + disp;
-        snake[0].y = snake[0].oldY;
+    function moveRight(keyPressEvent) {
+        moveHeadRight(keyPressEvent);
+        moveBody();
+    }
+
+    function moveHeadDown(keyPressEvent) {
+        if (snake[0].drawn == true) {
+            updateOldXY(0, snake[0].x, snake[0].y);
+            direction = 'down';
+            snake[0].x = snake[0].x;
+            snake[0].y = snake[0].y + blockSize;
+            snake[0].drawn = false;
+        } else {
+            if (keyPressEvent) {
+                updateOldXY(0, snake[0].oldX, snake[0].oldY);
+                direction = 'down';
+                snake[0].x = snake[0].oldX;
+                snake[0].y = snake[0].oldY + blockSize;
+                snake[0].drawn = false;
+            }
+        }
+    }
+
+    function moveHeadUp(keyPressEvent) {
+        if (snake[0].drawn == true) {
+            updateOldXY(0, snake[0].x, snake[0].y);
+            direction = 'up';
+            snake[0].x = snake[0].x;
+            snake[0].y = snake[0].y - blockSize;
+            snake[0].drawn = false;
+        } else {
+            if (keyPressEvent) {
+                updateOldXY(0, snake[0].oldX, snake[0].oldY);
+                direction = 'up';
+                snake[0].x = snake[0].oldX;
+                snake[0].y = snake[0].oldY - blockSize;
+                snake[0].drawn = false;
+            }
+        }
+    }
+
+    function moveHeadLeft(keyPressEvent) {
+        if (snake[0].drawn == true) {
+            updateOldXY(0, snake[0].x, snake[0].y);
+            direction = 'left';
+            snake[0].x = snake[0].x - blockSize;
+            snake[0].y = snake[0].y;
+            snake[0].drawn = false;
+        } else {
+            if (keyPressEvent) {
+                updateOldXY(0, snake[0].oldX, snake[0].oldY);
+                direction = 'left';
+                snake[0].x = snake[0].oldX - blockSize;
+                snake[0].y = snake[0].oldY;
+                snake[0].drawn = false;
+            }
+        }
+    }
+
+    function moveHeadRight(keyPressEvent) {
+        if (snake[0].drawn == true) {
+            updateOldXY(0, snake[0].x, snake[0].y);
+            direction = 'right';
+            snake[0].x = snake[0].x + blockSize;
+            snake[0].y = snake[0].y;
+            snake[0].drawn = false;
+        } else {
+            if (keyPressEvent) {
+                updateOldXY(0, snake[0].oldX, snake[0].oldY);
+                direction = 'right';
+                snake[0].x = snake[0].oldX + blockSize;
+                snake[0].y = snake[0].oldY;
+                snake[0].drawn = false;
+            }
+        }
+    }
+
+    function moveBody() {
+        $.each(snake, function (index, value) {
+            if (index != 0) {
+                if (snake[index].drawn == true) {
+                    updateOldXY(index, value.x, value.y);
+                    snake[index].x = snake[index - 1].oldX;
+                    snake[index].y = snake[index - 1].oldY;
+                    snake[index].drawn = false;
+                }
+            }
+        });
+    }
+
+    function updateOldXY(index, x, y) {
+        snake[index].oldX = x;
+        snake[index].oldY = y;
     }
 
 });
