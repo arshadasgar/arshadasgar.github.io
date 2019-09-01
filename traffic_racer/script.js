@@ -15,6 +15,8 @@ $(function() {
     var restart_div = $('#restart_div');
     var restart_btn = $('#restart');
     var score = $('#score');
+    var high_score = localStorage.getItem('high_score');
+    $('#high_score').text(high_score);
 
     //saving some initial setup
     var container_left = parseInt(container.css('left'));
@@ -162,6 +164,15 @@ $(function() {
         cancelAnimationFrame(move_down);
         restart_div.slideDown();
         restart_btn.focus();
+        setHighScore();
+    }
+
+    function setHighScore() {
+        if (high_score < parseInt(score.text())) {
+            high_score = parseInt(score.text());
+            localStorage.setItem('high_score', parseInt(score.text()));
+        }
+        $('#high_score').text(high_score);
     }
 
     /* ------------------------------GAME CODE ENDS HERE------------------------------------------- */
