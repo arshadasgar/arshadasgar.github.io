@@ -1,9 +1,15 @@
 $(function () {
 
     var emp_id = prompt('Please enter your employee id');
+    var token;
     if (emp_id != null && Number.isInteger(parseInt(emp_id))) {
 
         $('#emp_id_span').text(emp_id);
+        $.post('functions.php', {
+            action: btoa('get_token'),
+        }, function(resp) {
+            token = resp.token;
+        });
 
         var canvas = $('#canvas')[0],
             ctx = canvas.getContext('2d'),
@@ -211,11 +217,13 @@ $(function () {
         function game_over() {
             maveli_on_floor = false;
             is_game_over = true;
-            $.post('save.php', {
+            $.post('functions.php', {
+                action: btoa('save_score'),
+                token: token,
                 emp_id: btoa(emp_id),
                 score: btoa(score)
             }, function(resp) {
-
+                
             });
         }
 
