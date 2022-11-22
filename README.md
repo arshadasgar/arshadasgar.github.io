@@ -12,4 +12,5 @@
 * **Traffic racer**: [https://www.youtube.com/watch?v=oWaGkW1YDmk](https://www.youtube.com/watch?v=oWaGkW1YDmk)  
 * **Pingpong**: [https://www.youtube.com/watch?v=lkQpQ0vi5kU](https://www.youtube.com/watch?v=lkQpQ0vi5kU)  
 * **Catch the eggs**: [https://www.youtube.com/watch?v=TdR5-_0k6pc](https://www.youtube.com/watch?v=TdR5-_0k6pc)  
+* **Snake**: [https://www.youtube.com/watch?v=34fnnxpjRAs](https://www.youtube.com/watch?v=34fnnxpjRAs)  
 
