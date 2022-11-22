@@ -11,7 +11,7 @@ $(function () {
     var score = 0;
     var keyPressed = 40;
     var keyPressPending = false;
-    var speed = 250;
+    var speed = 250; 
     var snake = [{
         x: 200,
         y: 40,
