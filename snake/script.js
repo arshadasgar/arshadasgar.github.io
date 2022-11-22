@@ -11,6 +11,7 @@ $(function () {
     var score = 0;
     var keyPressed = 40;
     var keyPressPending = false;
+    var speed = 250;
     var snake = [{
         x: 200,
         y: 40,
@@ -51,7 +52,7 @@ $(function () {
     startGame();
 
     function startGame() {
-        game = setInterval(gameLoop, 300);
+        game = setInterval(gameLoop, speed);
     }
 
     function stopGame() {
@@ -82,6 +83,7 @@ $(function () {
                         updateScore();
                         updateFoodEatenFlag();
                         makeSnakeBigger();
+                        increaseSpeed();
                     }
                 }
             }
@@ -105,6 +107,14 @@ $(function () {
             x: snake[snake.length - 1].x,
             y: snake[snake.length - 1].y
         });
+    }
+
+    function increaseSpeed() {
+        if(speed > 60) {
+            clearInterval(game);
+            speed = speed - 20;
+            game = setInterval(gameLoop, speed);
+        }
     }
 
     function collided(x, y) {
