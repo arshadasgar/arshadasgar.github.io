@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VR Shooting Gallery</title>
+    <meta name="description" content="A simple VR shooting game for the Meta Quest.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- A-Frame Library -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script>
+      // AFRAME.registerComponent(componentName, definition)
+      // This is where we define the custom behavior for our targets.
+      AFRAME.registerComponent('shootable-target', {
+        
+        // schema: defines the properties of our component.
+        // We can add properties here to make our targets more customizable later.
+        schema: {
+          // Example: health points for a target
+          // hp: {type: 'int', default: 100}
+        },
+
+        // init(): This function is called once when the component is first attached to an entity.
+        // It's the perfect place to set up initial state and event listeners.
+        init: function () {
+          const el = this.el; // 'el' is a reference to the entity this component is attached to (our target).
+          
+          // Add an event listener for the 'click' event.
+          // In A-Frame's VR mode with controllers, a 'click' is triggered by pulling the trigger
+          // while the controller's raycaster is pointing at (intersecting) the entity.
+          el.addEventListener('click', () => {
+            // --- Target Hit Logic ---
+            
+            // 1. Make the target invisible so it looks like it was destroyed.
+            el.setAttribute('visible', false);
+            
+            // 2. Emit a custom event to notify the scene that a target was hit.
+            // This is useful for a central scorekeeper.
+            el.sceneEl.emit('target-hit');
+
+            // 3. After a delay (1 second), respawn the target at a new random position.
+            setTimeout(() => {
+              this.respawnTarget();
+            }, 1000); // 1000 milliseconds = 1 second
+          });
+        },
+        
+        // A helper function to move the target to a new random location.
+        respawnTarget: function() {
+          const el = this.el;
+          
+          // Define the area where targets can spawn.
+          // These values are chosen to match the size of the backboard.
+          const spawnAreaX = 4.5; // Half the width of the backboard
+          const spawnAreaY = 2.0;  // Half the height of the backboard
+          
+          // Calculate new random coordinates.
+          // Math.random() returns a number between 0 and 1.
+          const newX = (Math.random() - 0.5) * 2 * spawnAreaX; // Range: -4.5 to 4.5
+          const newY = (Math.random() * spawnAreaY) + 1; // Range: 1.0 to 3.0 (to avoid spawning on the floor)
+          
+          // Set the new position. The Z position remains the same.
+          el.setAttribute('position', { x: newX, y: newY, z: -10 });
+          
+          // Make the target visible again.
+          el.setAttribute('visible', true);
+        }
+      });
+
+      // This component will manage the game's state, like the score.
+      AFRAME.registerComponent('game-logic', {
+        init: function() {
+          this.score = 0;
+          this.scoreText = document.querySelector('#scoreText'); // Get the score text entity
+
+          // Listen for the 'target-hit' event that our targets emit.
+          this.el.sceneEl.addEventListener('target-hit', () => {
+            this.score++;
+            // Update the text value. The `value` property of a-text is what gets displayed.
+            this.scoreText.setAttribute('text', { value: 'Score: ' + this.score });
+          });
+        }
+      });
+
+    </script>
+  </head>
+  <body>
+    <!-- <a-scene> is the root of all A-Frame content. It sets up the WebGL canvas, renderer, and camera. -->
+    <!-- We attach our 'game-logic' component here to manage the whole scene. -->
+    <a-scene background="color: #2E2E2E" game-logic>
+
+      <!-- Assets Management System -->
+      <!-- It's good practice to preload assets like models, images, and sounds here. -->
+      <a-assets>
+        <!-- Sound effects could be added here -->
+        <!-- <audio id="shoot-sound" src="sounds/shoot.wav"></audio> -->
+      </a-assets>
+
+      <!-- Environment -->
+      <a-sky color="#87CEEB"></a-sky>
+      <a-plane 
+        position="0 0 -10" 
+        rotation="-90 0 0" 
+        width="20" 
+        height="20" 
+        color="#795548"
+        shadow="receive: true">
+      </a-plane>
+
+      <!-- The Shooting Gallery Backboard -->
+      <a-box 
+        position="0 2.5 -10.5" 
+        width="10" 
+        height="5" 
+        depth="0.2" 
+        color="#4DB6AC"
+        shadow="cast: false; receive: true">
+      </a-box>
+
+      <!-- Player and Controls -->
+      <!-- We wrap the camera and controllers in a "rig" entity for easier movement in the future. -->
+      <a-entity id="player-rig" position="0 0 2">
+        <!-- The camera is the user's viewpoint. -->
+        <a-camera position="0 1.6 0"></a-camera>
+        
+        <!-- Right Hand Controller -->
+        <!-- 'oculus-touch-controls' provides the model and tracking for Quest controllers. -->
+        <!-- 'laser-controls' provides the raycaster (the aiming line) and handles the click events. -->
+        <a-entity 
+          oculus-touch-controls="hand: right"
+          laser-controls="hand: right"
+          raycaster="objects: .target; far: 20;"
+        >
+          <!-- This cylinder acts as our simple "gun" model, attached to the hand. -->
+          <a-cylinder 
+            position="0 -0.05 -0.3" 
+            rotation="90 0 0" 
+            radius="0.03" 
+            height="0.3" 
+            color="#333333">
+          </a-cylinder>
+        </a-entity>
+
+        <!-- Left hand (optional, not used for shooting in this simple game) -->
+        <a-entity oculus-touch-controls="hand: left"></a-entity>
+      </a-entity>
+
+      <!-- Targets -->
+      <!-- We give each target the 'target' class so the raycaster knows what to aim at. -->
+      <!-- We attach our custom 'shootable-target' component to make them interactive. -->
+      <a-entity class="target" shootable-target
+        geometry="primitive: cylinder; radius: 0.5; height: 0.2;"
+        material="color: #FFC107"
+        position="-3 2 -10"
+        rotation="0 90 0"
+        shadow="cast: true">
+      </a-entity>
+
+      <a-entity class="target" shootable-target
+        geometry="primitive: cylinder; radius: 0.25; height: 0.2;"
+        material="color: #E91E63"
+        position="3 3 -10"
+        rotation="0 90 0"
+        shadow="cast: true">
+      </a-entity>
+
+      <a-entity class="target" shootable-target
+        geometry="primitive: cylinder; radius: 0.7; height: 0.2;"
+        material="color: #2196F3"
+        position="0 1.5 -10"
+        rotation="0 90 0"
+        shadow="cast: true">
+      </a-entity>
+      
+      <a-entity class="target" shootable-target
+        geometry="primitive: cylinder; radius: 0.4; height: 0.2;"
+        material="color: #4CAF50"
+        position="2 1 -10"
+        rotation="0 90 0"
+        shadow="cast: true">
+      </a-entity>
+
+      <!-- Score Display -->
+      <a-text id="scoreText" value="Score: 0" position="-1 4 -6" color="white" align="center" width="4"></a-text>
+
+    </a-scene>
+  </body>
+</html>
