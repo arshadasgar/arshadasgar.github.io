@@ -14,6 +14,12 @@
 
           el.addEventListener('click', () => {
             // --- Target Hit Logic ---
+
+            // Play hit sound
+            const hitAudio = document.createElement('a-sound');
+            hitAudio.setAttribute('src', '#hitSound');
+            el.appendChild(hitAudio);
+            hitAudio.components.sound.playSound();
             
             // 1. Make the target invisible.
             el.setAttribute('visible', false);
@@ -23,6 +29,7 @@
 
             // 3. Respawn the target after a 1-second delay.
             setTimeout(() => {
+              el.removeChild(hitAudio); // Remove sound entity after playing
               this.respawnTarget();
             }, 1000);
           });
@@ -59,6 +66,28 @@
         }
       });
 
+      AFRAME.registerComponent('gun-sound', {
+        init: function () {
+          const gunEntity = this.el;
+          const shootAudio = document.createElement('a-sound');
+          shootAudio.setAttribute('src', '#shootSound');
+          shootAudio.setAttribute('poolSize', 5); // Multiple rapid shots
+          this.el.appendChild(shootAudio);
+
+          // Listen for triggerdown event from controllers or mouse click for desktop
+          this.el.addEventListener('triggerdown', () => {
+            shootAudio.components.sound.stopSound();
+            shootAudio.components.sound.playSound();
+          });
+
+          // For mouse users, also trigger sound on click
+          gunEntity.addEventListener('click', () => {
+            shootAudio.components.sound.stopSound();
+            shootAudio.components.sound.playSound();
+          });
+        }
+      });
+
       // --- Component for managing the game score ---
       AFRAME.registerComponent('game-logic', {
         init: function() {
@@ -79,8 +108,8 @@
 
       <!-- All assets have been removed for debugging -->
       <a-assets>
-        <audio id="shootSound" src="https://cdn.jsdelivr.net/gh/hartzis/short-audio-files@main/shoot.wav"></audio>
-        <audio id="hitSound" src="https://cdn.jsdelivr.net/gh/hartzis/short-audio-files@main/hit.wav"></audio>
+        <audio id="shootSound" src="./assets/sounds/pistol_firing.mp3"></audio>
+        <!-- <audio id="hitSound" src="https://cdn.jsdelivr.net/gh/hartzis/short-audio-files@main/hit.wav"></audio> -->
       </a-assets>
       <!-- Environment -->
       <a-sky color="#87CEEB"></a-sky>
@@ -95,7 +124,8 @@
         <a-entity 
           oculus-touch-controls="hand: right"
           laser-controls="hand: right"
-          raycaster="objects: .target; far: 20;">
+          raycaster="objects: .target; far: 20;"
+          gun-sound>
           
           <!-- Simple cylinder to act as the gun model -->
           <a-cylinder 
