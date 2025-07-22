@@ -78,7 +78,10 @@
     <a-scene background="color: #2E2E2E" game-logic>
 
       <!-- All assets have been removed for debugging -->
-
+      <a-assets>
+        <audio id="shootSound" src="https://cdn.jsdelivr.net/gh/hartzis/short-audio-files@main/shoot.wav"></audio>
+        <audio id="hitSound" src="https://cdn.jsdelivr.net/gh/hartzis/short-audio-files@main/hit.wav"></audio>
+      </a-assets>
       <!-- Environment -->
       <a-sky color="#87CEEB"></a-sky>
       <a-plane position="0 0 -10" rotation="-90 0 0" width="20" height="20" color="#795548" shadow="receive: true"></a-plane>
