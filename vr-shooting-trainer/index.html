@@ -1,52 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VR Shooting Gallery V2</title>
-    <meta name="description" content="A simple VR shooting game for the Meta Quest with a pistol and sounds.">
+    <title>VR Shooting Gallery (Simplified)</title>
+    <meta name="description" content="A simplified VR shooting game for debugging.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- A-Frame Library -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script>
-      // --- Component for handling gun actions (like shooting sound) ---
-      AFRAME.registerComponent('gun-handler', {
-        init: function () {
-          const el = this.el;
-          const shootSound = document.querySelector('#shoot-sound');
-
-          // Listen for the trigger press on the controller
-          el.addEventListener('triggerdown', () => {
-            // Play the shooting sound
-            if (shootSound) {
-              // We check if the sound component is ready and play it.
-              if (shootSound.components.sound) {
-                shootSound.components.sound.playSound();
-              }
-            }
-          });
-        }
-      });
-
       // --- Component for making targets shootable and respawnable ---
       AFRAME.registerComponent('shootable-target', {
         init: function () {
           const el = this.el;
-          const crackSound = document.querySelector('#crack-sound');
 
           el.addEventListener('click', () => {
             // --- Target Hit Logic ---
             
-            // 1. Play the cracking sound effect.
-            if (crackSound && crackSound.components.sound) {
-              crackSound.components.sound.playSound();
-            }
-            
-            // 2. Make the target invisible.
+            // 1. Make the target invisible.
             el.setAttribute('visible', false);
             
-            // 3. Emit event for the scorekeeper.
+            // 2. Emit event for the scorekeeper.
             el.sceneEl.emit('target-hit');
 
-            // 4. Respawn the target after a 1-second delay.
+            // 3. Respawn the target after a 1-second delay.
             setTimeout(() => {
               this.respawnTarget();
             }, 1000);
@@ -66,7 +41,6 @@
           const newY = (Math.random() * spawnAreaY) + 1;
           
           // Calculate a new random radius for the target.
-          // This makes the diameter change randomly.
           const minRadius = 0.15;
           const maxRadius = 0.6;
           const newRadius = Math.random() * (maxRadius - minRadius) + minRadius;
@@ -103,15 +77,7 @@
   <body>
     <a-scene background="color: #2E2E2E" game-logic>
 
-      <!-- Assets Management System: Preload models and sounds for better performance -->
-      <a-assets>
-        <!-- Pistol 3D Model from a reliable CDN -->
-        <a-asset-item id="pistol-gltf" src="https://cdn.glitch.global/e499415f-4131-4936-8a8c-92a632b57a85/pistol.glb?v=1662499883937"></a-asset-item>
-        
-        <!-- Sound Effects -->
-        <audio id="shoot-sound" src="https://cdn.glitch.global/e499415f-4131-4936-8a8c-92a632b57a85/gun-shot.wav?v=1662499877705" preload="auto"></audio>
-        <audio id="crack-sound" src="https://cdn.glitch.global/e499415f-4131-4936-8a8c-92a632b57a85/target-crack.wav?v=1662499880499" preload="auto"></audio>
-      </a-assets>
+      <!-- All assets have been removed for debugging -->
 
       <!-- Environment -->
       <a-sky color="#87CEEB"></a-sky>
@@ -122,20 +88,20 @@
       <a-entity id="player-rig" position="0 0 2">
         <a-camera position="0 1.6 0"></a-camera>
         
-        <!-- Right Hand Controller with Pistol -->
+        <!-- Right Hand Controller with simple cylinder "gun" -->
         <a-entity 
           oculus-touch-controls="hand: right"
           laser-controls="hand: right"
-          raycaster="objects: .target; far: 20;"
-          gun-handler>
+          raycaster="objects: .target; far: 20;">
           
-          <!-- Pistol Model: Replaces the old cylinder. We scale and position it to fit the hand. -->
-          <a-gltf-model 
-            src="#pistol-gltf" 
-            position="0.05 -0.15 -0.3" 
-            rotation="0 90 0" 
-            scale="0.1 0.1 0.1">
-          </a-gltf-model>
+          <!-- Simple cylinder to act as the gun model -->
+          <a-cylinder 
+            position="0 -0.05 -0.3" 
+            rotation="90 0 0" 
+            radius="0.03" 
+            height="0.3" 
+            color="#333333">
+          </a-cylinder>
         </a-entity>
 
         <!-- Left hand -->
@@ -143,7 +109,6 @@
       </a-entity>
 
       <!-- Targets -->
-      <!-- The geometry is now a 'circle' and the radius will be randomized on respawn. -->
       <a-entity class="target" shootable-target
         geometry="primitive: circle; radius: 0.5;"
         material="color: #FFC107; side: double;"
