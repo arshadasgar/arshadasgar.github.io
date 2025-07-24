@@ -16,10 +16,10 @@
             // --- Target Hit Logic ---
 
             // Play hit sound
-            const hitAudio = document.createElement('a-sound');
-            hitAudio.setAttribute('src', '#hitSound');
-            el.appendChild(hitAudio);
-            hitAudio.components.sound.playSound();
+            // const hitAudio = document.createElement('a-sound');
+            // hitAudio.setAttribute('src', '#hitSound');
+            // el.appendChild(hitAudio);
+            // hitAudio.components.sound.playSound();
             
             // 1. Make the target invisible.
             el.setAttribute('visible', false);
@@ -29,7 +29,7 @@
 
             // 3. Respawn the target after a 1-second delay.
             setTimeout(() => {
-              el.removeChild(hitAudio); // Remove sound entity after playing
+              // el.removeChild(hitAudio); // Remove sound entity after playing
               this.respawnTarget();
             }, 1000);
           });
@@ -66,27 +66,27 @@
         }
       });
 
-      AFRAME.registerComponent('gun-sound', {
-        init: function () {
-          const gunEntity = this.el;
-          const shootAudio = document.createElement('a-sound');
-          shootAudio.setAttribute('src', '#shootSound');
-          shootAudio.setAttribute('poolSize', 5); // Multiple rapid shots
-          this.el.appendChild(shootAudio);
+      // AFRAME.registerComponent('gun-sound', {
+      //   init: function () {
+      //     const gunEntity = this.el;
+      //     const shootAudio = document.createElement('a-sound');
+      //     shootAudio.setAttribute('src', '#shootSound');
+      //     shootAudio.setAttribute('poolSize', 5); // Multiple rapid shots
+      //     this.el.appendChild(shootAudio);
 
-          // Listen for triggerdown event from controllers or mouse click for desktop
-          this.el.addEventListener('triggerdown', () => {
-            shootAudio.components.sound.stopSound();
-            shootAudio.components.sound.playSound();
-          });
+      //     // Listen for triggerdown event from controllers or mouse click for desktop
+      //     this.el.addEventListener('triggerdown', () => {
+      //       shootAudio.components.sound.stopSound();
+      //       shootAudio.components.sound.playSound();
+      //     });
 
-          // For mouse users, also trigger sound on click
-          gunEntity.addEventListener('click', () => {
-            shootAudio.components.sound.stopSound();
-            shootAudio.components.sound.playSound();
-          });
-        }
-      });
+      //     // For mouse users, also trigger sound on click
+      //     gunEntity.addEventListener('click', () => {
+      //       shootAudio.components.sound.stopSound();
+      //       shootAudio.components.sound.playSound();
+      //     });
+      //   }
+      // });
 
       // --- Component for managing the game score ---
       AFRAME.registerComponent('game-logic', {
@@ -104,7 +104,7 @@
     </script>
   </head>
   <body>
-    <a-scene background="color: #2E2E2E" game-logic xrweb="optionalFeatures: hit-test; optionalFeatures: local-floor; optionalFeatures: bounded-floor; optionalFeatures: hand-tracking; optionalFeatures: layers">
+    <a-scene background="color: #2E2E2E" game-logic>
 
       <!-- All assets have been removed for debugging -->
       <a-assets>
