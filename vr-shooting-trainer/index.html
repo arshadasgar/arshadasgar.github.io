@@ -16,10 +16,10 @@
             // --- Target Hit Logic ---
 
             // Play hit sound
-            // const hitAudio = document.createElement('a-sound');
-            // hitAudio.setAttribute('src', '#hitSound');
-            // el.appendChild(hitAudio);
-            // hitAudio.components.sound.playSound();
+            const hitAudio = document.createElement('a-sound');
+            hitAudio.setAttribute('src', '#hitSound');
+            el.appendChild(hitAudio);
+            hitAudio.components.sound.playSound();
             
             // 1. Make the target invisible.
             el.setAttribute('visible', false);
@@ -29,7 +29,7 @@
 
             // 3. Respawn the target after a 1-second delay.
             setTimeout(() => {
-              // el.removeChild(hitAudio); // Remove sound entity after playing
+              el.removeChild(hitAudio); // Remove sound entity after playing
               this.respawnTarget();
             }, 1000);
           });
@@ -130,7 +130,7 @@
           <!-- Simple cylinder to act as the gun model -->
           <a-cylinder 
             position="0 -0.05 -0.3" 
-            rotation="90 0 0" 
+            rotation="54 0 0" 
             radius="0.03" 
             height="0.3" 
             color="#333333">
